@@ -1,6 +1,6 @@
 import logging
-from parser_config import conf
-
+from Common.handle_config import conf
+from Common.handle_path import logs_dir
 
 class MyLogger(logging.Logger):
     def __init__(self,name,level=logging.INFO,file=None):
@@ -23,7 +23,7 @@ class MyLogger(logging.Logger):
 
 # 是否需要写入文件
 if conf.getboolean('log','file_ok'):
-    file_name = conf.get('log','file_name')
+    file_name = logs_dir + '/' +conf.get('log','file_name')
 else:
     file_name = None
 
