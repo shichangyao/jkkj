@@ -28,7 +28,7 @@ class ReadExcel(object):
             # # 将请求数据从json字符串转换成字典对象
             # res["request_data"] = json.loads(res["request_data"])  # 不能在这里直接转换成字典，需要在发起请求中替换之后再转成字典对象
             # eval()如果有None会报错
-            res["expected"] = eval(res["expected"])
+            # res["expected"] = eval(res["expected"])
             all_data.append(res)
         return all_data
 

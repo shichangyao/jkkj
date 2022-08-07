@@ -43,9 +43,11 @@ class TestRegister(unittest.TestCase):
         # case["request_data"] = json.loads(case["request_data"])
         # 发起请求
         response = send_requests(case['method'],case['url'],case["request_data"])
+        # 将期望结果转成字典对象在比对
+        expected = json.loads(case["expected"])
         try:
-            self.assertEqual(response.json()["code"], case["expected"]["code"])
-            self.assertEqual(response.json()["msg"], case["expected"]["msg"])
+            self.assertEqual(response.json()["code"], expected["code"])
+            self.assertEqual(response.json()["msg"], expected["msg"])
             # 如果check_sql有值,说明要做数据库校验
             if case['check_sql']:
                 result = db.get_one_data(case['check_sql'])
