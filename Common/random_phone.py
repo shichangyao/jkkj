@@ -27,7 +27,20 @@ def get_new_phone():
         # 校验
         count = db.get_count('select * from member where mobile_phone = "{}"'.format(phone))
         if count == 0:  # 如果没查到那就是没注册的号码
-            db.get_close()
+            # db.get_close()
             return phone
 
-print(get_new_phone())
+def get_old_phone():
+    '''
+    从配置文件获取指定用户和密码，确保其已经被注册,返回用户和密码
+    '''
+    from Common.handle_config import conf
+    user = conf.get("general_user",'user')
+    password = conf.getint("general_user",'password')
+    # 数据库查找user,如果查到直接返回，若是没有查到，调用注册接口再返回
+    # 不管注册与否直接调用注册接口
+    from Common.requests_encapsulation import send_requests
+    send_requests("POST","member/register",{'mobile_phone':user,"pwd":password})
+    return user,password
+
+# print(get_new_phone())

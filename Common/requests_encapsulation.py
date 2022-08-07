@@ -6,8 +6,27 @@
 3.请求体格式:application/json
 '''
 
-import requests
+import requests,json
 from Common.mylogger import logger
+from Common.handle_config import conf
+
+def __pre_data(data):
+    '''
+    若数据为字符串则转换成字典
+    '''
+    if data is not None and isinstance(data,str):
+        return json.loads(data)
+    return data
+
+def __pre_url(url):
+    '''
+    拼接url
+    '''
+    base_url = conf.get('server','base_url')
+    if url.startswith('/'):
+        return base_url + url
+    else:
+        return base_url + '/' + url
 
 def __handle_header(token=None):
     headers = {'X-Lemonban-Media-Type': 'lemonban.v2',"Content-Type":"application/json"}
@@ -18,6 +37,10 @@ def __handle_header(token=None):
 def send_requests(method,url,data=None,token=None):
     # 拿到请求头
     headers = __handle_header(token)
+    # 拼接url
+    url = __pre_url(url)
+    # 请求数据的处理，若是字符串转换成字典
+    data = __pre_data(data)
     logger.info("请求头为：{}".format(headers))
     logger.info("请求方法为：{}".format(method))
     logger.info("请求url为：{}".format(url))

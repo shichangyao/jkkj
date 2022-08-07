@@ -25,21 +25,25 @@ class HandleDB:
     def get_one_data(self,sql):
         self.con.commit()
         self.cur.execute(sql)
+        self.con.ping(reconnect=True)  # # 检查连接是否断开，如果断开就进行重连
         return self.cur.fetchone()
 
     def get_all_datas(self,sql):
         self.con.commit()
+        self.con.ping(reconnect=True)
         self.cur.execute(sql)
         return self.cur.fetchall()
 
     def get_count(self,sql):
         self.con.commit()
+        self.con.ping(reconnect=True)
         return self.cur.execute(sql)
 
     def update(self,sql):
         '''
         对数据库进行增删改
         '''
+        self.con.ping(reconnect=True)
         self.cur.execute(sql)
         self.con.commit()
 
