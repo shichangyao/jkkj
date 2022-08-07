@@ -7159,13 +7159,73 @@ body.skin-3 {
 
 
     var resultData = {
-    "testPass": 10,
+    "testPass": 22,
     "testResult": [
         {
-            "className": "TestRegister",
-            "methodName": "test_register_ok_01",
-            "description": "注册成功-带注册名",
-            "spendTime": "1.19 s",
+            "className": "TestRecharge",
+            "methodName": "test_recharge_01",
+            "description": "充值成功-整数",
+            "spendTime": "0.872 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_02",
+            "description": "充值成功-1位小数",
+            "spendTime": "0.819 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_03",
+            "description": "充值成功-2位小数",
+            "spendTime": "0.921 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_04",
+            "description": "充值成功-50万",
+            "spendTime": "0.783 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_05",
+            "description": "会员id为空",
+            "spendTime": "0.498 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_06",
+            "description": "id不是当前登录的用户",
+            "spendTime": "0.473 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_07",
+            "description": "会员id为字符串",
+            "spendTime": "0.555 s",
             "status": "失败",
             "log": [
                 "",
@@ -7174,17 +7234,115 @@ body.skin-3 {
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 676, in run\n    self._callTestMethod(testMethod)\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 633, in _callTestMethod\n    method()\n",
                 "  File \"/Users/shichangyao/PycharmProjects/jkkj/Common/myddt.py\", line 191, in wrapper\n    return func(self, *args, **kwargs)\n",
-                "  File \"/Users/shichangyao/PycharmProjects/jkkj/TestCases/test_register.py\", line 52, in test_register_ok\n    self.assertIsNone(result)\n",
+                "  File \"/Users/shichangyao/PycharmProjects/jkkj/TestCases/test_recharge.py\", line 84, in test_recharge\n    self.assertEqual(response.json()[\"code\"], expected[\"code\"])\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 912, in assertEqual\n    assertion_func(first, second, msg=msg)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 905, in _baseAssertEqual\n    raise self.failureException(msg)\n",
+                "AssertionError: 0 != 2\n"
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_08",
+            "description": "会员id为小数",
+            "spendTime": "0.456 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_09",
+            "description": "充值金额为0",
+            "spendTime": "0.477 s",
+            "status": "失败",
+            "log": [
+                "",
+                "Traceback (most recent call last):\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 60, in testPartExecutor\n    yield\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 676, in run\n    self._callTestMethod(testMethod)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 633, in _callTestMethod\n    method()\n",
+                "  File \"/Users/shichangyao/PycharmProjects/jkkj/Common/myddt.py\", line 191, in wrapper\n    return func(self, *args, **kwargs)\n",
+                "  File \"/Users/shichangyao/PycharmProjects/jkkj/TestCases/test_recharge.py\", line 84, in test_recharge\n    self.assertEqual(response.json()[\"code\"], expected[\"code\"])\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 912, in assertEqual\n    assertion_func(first, second, msg=msg)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 905, in _baseAssertEqual\n    raise self.failureException(msg)\n",
+                "AssertionError: 0 != 2\n"
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_10",
+            "description": "充值金额为负数",
+            "spendTime": "0.499 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_11",
+            "description": "充值金额为空",
+            "spendTime": "0.485 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_12",
+            "description": "充值金额-3位小数",
+            "spendTime": "0.538 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_13",
+            "description": "充值金额-大于50万",
+            "spendTime": "0.51 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRecharge",
+            "methodName": "test_recharge_14",
+            "description": "充值金额-非数字",
+            "spendTime": "0.513 s",
+            "status": "成功",
+            "log": [
+                ""
+            ]
+        },
+        {
+            "className": "TestRegister",
+            "methodName": "test_register_ok_01",
+            "description": "注册成功-带注册名",
+            "spendTime": "1.1 s",
+            "status": "失败",
+            "log": [
+                "",
+                "Traceback (most recent call last):\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 60, in testPartExecutor\n    yield\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 676, in run\n    self._callTestMethod(testMethod)\n",
+                "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 633, in _callTestMethod\n    method()\n",
+                "  File \"/Users/shichangyao/PycharmProjects/jkkj/Common/myddt.py\", line 191, in wrapper\n    return func(self, *args, **kwargs)\n",
+                "  File \"/Users/shichangyao/PycharmProjects/jkkj/TestCases/test_register.py\", line 54, in test_register_ok\n    self.assertIsNone(result)\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 1322, in assertIsNone\n    self.fail(self._formatMessage(msg, standardMsg))\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 753, in fail\n    raise self.failureException(msg)\n",
-                "AssertionError: {'id': 11059744, 'reg_name': '美丽可爱的小简', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobile_phone': '15624713416', 'type': 1, 'leave_amount': Decimal('0.00'), 'reg_time': datetime.datetime(2022, 8, 6, 14, 19, 34)} is not None\n"
+                "AssertionError: {'id': 11060920, 'reg_name': '美丽可爱的小简', 'pwd': '25F9E794323B453885F5181F1B624D0B', 'mobile_phone': '14526912425', 'type': 1, 'leave_amount': Decimal('0.00'), 'reg_time': datetime.datetime(2022, 8, 7, 22, 7, 17)} is not None\n"
             ]
         },
         {
             "className": "TestRegister",
             "methodName": "test_register_ok_02",
             "description": "成功不带用户名",
-            "spendTime": "0.926 s",
+            "spendTime": "0.842 s",
             "status": "失败",
             "log": [
                 "",
@@ -7193,17 +7351,17 @@ body.skin-3 {
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 676, in run\n    self._callTestMethod(testMethod)\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 633, in _callTestMethod\n    method()\n",
                 "  File \"/Users/shichangyao/PycharmProjects/jkkj/Common/myddt.py\", line 191, in wrapper\n    return func(self, *args, **kwargs)\n",
-                "  File \"/Users/shichangyao/PycharmProjects/jkkj/TestCases/test_register.py\", line 47, in test_register_ok\n    self.assertEqual(response.json()[\"code\"], case[\"expected\"][\"code\"])\n",
+                "  File \"/Users/shichangyao/PycharmProjects/jkkj/TestCases/test_register.py\", line 49, in test_register_ok\n    self.assertEqual(response.json()[\"code\"], expected[\"code\"])\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 912, in assertEqual\n    assertion_func(first, second, msg=msg)\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 905, in _baseAssertEqual\n    raise self.failureException(msg)\n",
-                "AssertionError: 0 != 1\n"
+                "AssertionError: 2 != 1\n"
             ]
         },
         {
             "className": "TestRegister",
             "methodName": "test_register_ok_03",
             "description": "不输入手机号",
-            "spendTime": "0.611 s",
+            "spendTime": "1.13 s",
             "status": "成功",
             "log": [
                 ""
@@ -7213,7 +7371,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_04",
             "description": "手机号码长度10位",
-            "spendTime": "0.5 s",
+            "spendTime": "0.486 s",
             "status": "成功",
             "log": [
                 ""
@@ -7223,7 +7381,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_05",
             "description": "手机号码长度12位",
-            "spendTime": "0.526 s",
+            "spendTime": "0.537 s",
             "status": "成功",
             "log": [
                 ""
@@ -7233,7 +7391,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_06",
             "description": "手机号含有非法字符",
-            "spendTime": "0.513 s",
+            "spendTime": "0.483 s",
             "status": "成功",
             "log": [
                 ""
@@ -7243,7 +7401,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_07",
             "description": "已注册过的手机号",
-            "spendTime": "0.614 s",
+            "spendTime": "0.521 s",
             "status": "成功",
             "log": [
                 ""
@@ -7253,7 +7411,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_08",
             "description": "密码7位",
-            "spendTime": "0.511 s",
+            "spendTime": "0.47 s",
             "status": "成功",
             "log": [
                 ""
@@ -7263,7 +7421,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_09",
             "description": "密码17位",
-            "spendTime": "0.513 s",
+            "spendTime": "0.476 s",
             "status": "成功",
             "log": [
                 ""
@@ -7273,7 +7431,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_10",
             "description": "不输入密码",
-            "spendTime": "0.612 s",
+            "spendTime": "0.507 s",
             "status": "成功",
             "log": [
                 ""
@@ -7283,7 +7441,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_11",
             "description": "注册名11位",
-            "spendTime": "0.511 s",
+            "spendTime": "0.512 s",
             "status": "成功",
             "log": [
                 ""
@@ -7293,7 +7451,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_12",
             "description": "类型输入非0，1内容",
-            "spendTime": "0.618 s",
+            "spendTime": "1.54 s",
             "status": "成功",
             "log": [
                 ""
@@ -7303,7 +7461,7 @@ body.skin-3 {
             "className": "TestRegister",
             "methodName": "test_register_ok_13",
             "description": "不输入类型",
-            "spendTime": "1.04 s",
+            "spendTime": "1.1 s",
             "status": "失败",
             "log": [
                 "",
@@ -7312,18 +7470,18 @@ body.skin-3 {
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 676, in run\n    self._callTestMethod(testMethod)\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 633, in _callTestMethod\n    method()\n",
                 "  File \"/Users/shichangyao/PycharmProjects/jkkj/Common/myddt.py\", line 191, in wrapper\n    return func(self, *args, **kwargs)\n",
-                "  File \"/Users/shichangyao/PycharmProjects/jkkj/TestCases/test_register.py\", line 52, in test_register_ok\n    self.assertIsNone(result)\n",
+                "  File \"/Users/shichangyao/PycharmProjects/jkkj/TestCases/test_register.py\", line 54, in test_register_ok\n    self.assertIsNone(result)\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 1322, in assertIsNone\n    self.fail(self._formatMessage(msg, standardMsg))\n",
                 "  File \"/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/unittest/case.py\", line 753, in fail\n    raise self.failureException(msg)\n",
-                "AssertionError: {'id': 11059746, 'reg_name': '小柠檬', 'pwd': '25D55AD283AA400AF464C76D713C07AD', 'mobile_phone': '13310129907', 'type': 1, 'leave_amount': Decimal('0.00'), 'reg_time': datetime.datetime(2022, 8, 6, 14, 19, 42)} is not None\n"
+                "AssertionError: {'id': 11060921, 'reg_name': '小柠檬', 'pwd': '25D55AD283AA400AF464C76D713C07AD', 'mobile_phone': '15942099878', 'type': 1, 'leave_amount': Decimal('0.00'), 'reg_time': datetime.datetime(2022, 8, 7, 22, 7, 26)} is not None\n"
             ]
         }
     ],
     "testName": "测试报告",
-    "testAll": 13,
-    "testFail": 3,
-    "beginTime": "2022-08-06 14:19:33",
-    "totalTime": "9s",
+    "testAll": 27,
+    "testFail": 5,
+    "beginTime": "2022-08-07 22:07:05",
+    "totalTime": "21s",
     "testSkip": 0,
     "testError": 0
 };

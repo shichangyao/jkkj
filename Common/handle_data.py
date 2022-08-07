@@ -15,3 +15,10 @@ def replace_mark_with_data(case,mark,real_data):
             if value.find(mark) != -1:
                 case[key] = value.replace(mark,real_data)
     return case
+
+class EnvData:
+    '''
+    存储用例要使用到的数据。
+    '''
+    pass
+

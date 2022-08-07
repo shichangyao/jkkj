@@ -19,6 +19,7 @@ from Common import myddt
 from Common.handle_data import replace_mark_with_data
 from Common.mylogger import logger
 from Common.handle_db import HandleDB
+from Common.handle_data import EnvData
 
 he = ReadExcel(testdata_dir + '/api_cases.xlsx',"充值")
 cases = he.read_data()
@@ -40,10 +41,12 @@ class TestRecharge(unittest.TestCase):
         resp = send_requests('POST','/member/login',{'mobile_phone':user,'pwd':password})
         logger.info("登录的响应结果为：{}".format(resp.text))
         # 得到id和token
-        cls.member_id = jsonpath.jsonpath(resp.json(),'$..id')[0] # 此处有坑：定义类属性不能直接使用cls.id会报错，可能会重复
-        logger.info("获取到的member_id值为：{}".format(cls.member_id))
-        cls.token = jsonpath.jsonpath(resp.json(),'$..token')[0]
-        logger.info("获取到的token值为：{}".format(cls.token))
+        # cls.member_id = jsonpath.jsonpath(resp.json(),'$..id')[0] # 此处有坑：定义类属性不能直接使用cls.id会报错，可能会重复
+        setattr(EnvData,'member_id',jsonpath.jsonpath(resp.json(),'$..id')[0])
+        logger.info("获取到的member_id值为：{}".format(EnvData.member_id))
+        # cls.token = jsonpath.jsonpath(resp.json(),'$..token')[0]
+        setattr(EnvData,'token',jsonpath.jsonpath(resp.json(),'$..token')[0])
+        logger.info("获取到的token值为：{}".format(EnvData.token))
         logger.info("********注册模块用例开始执行********")
 
     @classmethod
@@ -55,7 +58,7 @@ class TestRecharge(unittest.TestCase):
         # 替换数据
         logger.info("执行用例{}：{}".format(case["case_id"], case["title"]))
         if case["request_data"].find('#member_id#') != -1:
-            case = replace_mark_with_data(case,"#member_id#",str(self.member_id))
+            case = replace_mark_with_data(case,"#member_id#",str(EnvData.member_id))
             logger.info("执行的测试用例数据为：{}".format(case))
 
         # 数据库查询当前leaveamount   (充值之前)
@@ -71,7 +74,7 @@ class TestRecharge(unittest.TestCase):
             case = replace_mark_with_data(case,"#money#",str(expected_user_leave_amount))
 
         # 发起请求,开始充值
-        response = send_requests(case['method'],case['url'],case['request_data'],token = self.token)
+        response = send_requests(case['method'],case['url'],case['request_data'],token = EnvData.token)
 
         # 将期望结果转换成字典对象，在比对
         expected = json.loads(case["expected"])
