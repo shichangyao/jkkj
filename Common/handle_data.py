@@ -67,6 +67,15 @@ class EnvData:
     '''
     pass
 
+def clear_EnvData_attrs():
+    # 清理EnvData里设置的属性
+    values = dict(EnvData.__dict__.items())
+    for key,value in values.items():
+        if key.startswith("__"):
+            pass
+        else:
+            delattr(EnvData,key)
+
 # 新方法：正则来替换
 # import re
 #

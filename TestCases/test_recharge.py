@@ -16,7 +16,7 @@ from Common.requests_encapsulation import send_requests
 from Common.read_excel import ReadExcel
 from Common.handle_path import testdata_dir
 from Common import myddt
-from Common.handle_data import replace_mark_with_data,replace_case_by_regular
+from Common.handle_data import replace_mark_with_data,replace_case_by_regular,clear_EnvData_attrs
 from Common.mylogger import logger
 from Common.handle_db import HandleDB
 from Common.handle_data import EnvData
@@ -31,6 +31,8 @@ db = HandleDB()
 class TestRecharge(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
+        # 清理EnvData里设置的属性
+        clear_EnvData_attrs()
         '''
         登录接口调用,得到id、token设置为类属性
         '''
@@ -51,8 +53,11 @@ class TestRecharge(unittest.TestCase):
         logger.info("获取到的token值为：{}".format(EnvData.token))
         logger.info("********注册模块用例开始执行********")
 
-    @classmethod
-    def tearDownClass(cls):
+
+    def tearDown(self):
+        # 清理类的动态属性
+        if hasattr(EnvData,"money"):
+            delattr(EnvData,"money")
         logger.info("********注册模块用例执行结束********")
 
     @myddt.data(*cases)
