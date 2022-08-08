@@ -16,7 +16,7 @@ from Common.requests_encapsulation import send_requests
 from Common.read_excel import ReadExcel
 from Common.handle_path import testdata_dir
 from Common import myddt
-from Common.handle_data import replace_mark_with_data
+from Common.handle_data import replace_mark_with_data,replace_case_by_regular
 from Common.mylogger import logger
 from Common.handle_db import HandleDB
 from Common.handle_data import EnvData
@@ -42,9 +42,11 @@ class TestRecharge(unittest.TestCase):
         logger.info("登录的响应结果为：{}".format(resp.text))
         # 得到id和token
         # cls.member_id = jsonpath.jsonpath(resp.json(),'$..id')[0] # 此处有坑：定义类属性不能直接使用cls.id会报错，可能会重复
-        setattr(EnvData,'member_id',jsonpath.jsonpath(resp.json(),'$..id')[0])
+        # setattr()   使用环境变量类，动态设置类属性
+        setattr(EnvData,'member_id',str(jsonpath.jsonpath(resp.json(),'$..id')[0]))
         logger.info("获取到的member_id值为：{}".format(EnvData.member_id))
         # cls.token = jsonpath.jsonpath(resp.json(),'$..token')[0]
+        # setattr()   使用环境变量类，动态设置类属性
         setattr(EnvData,'token',jsonpath.jsonpath(resp.json(),'$..token')[0])
         logger.info("获取到的token值为：{}".format(EnvData.token))
         logger.info("********注册模块用例开始执行********")
@@ -57,9 +59,11 @@ class TestRecharge(unittest.TestCase):
     def test_recharge(self,case):
         # 替换数据
         logger.info("执行用例{}：{}".format(case["case_id"], case["title"]))
-        if case["request_data"].find('#member_id#') != -1:
-            case = replace_mark_with_data(case,"#member_id#",str(EnvData.member_id))
-            logger.info("执行的测试用例数据为：{}".format(case))
+        # if case["request_data"].find('#member_id#') != -1:
+        #     case = replace_mark_with_data(case,"#member_id#",str(EnvData.member_id))
+        # 使用正则的方法替换
+        case = replace_case_by_regular(case)
+        logger.info("执行的测试用例数据为：{}".format(case))
 
         # 数据库查询当前leaveamount   (充值之前)
         if case['check_sql']:
@@ -70,8 +74,11 @@ class TestRecharge(unittest.TestCase):
             logger.info("本次充值的余额为：{}".format(recharge_money))
             expected_user_leave_amount = round(float(user_money_before_recharge) + recharge_money,2)  # 此处避免浮点数计算出现多位小数的情况采用round处理
             logger.info("期望充值之后的余额为：{}".format(expected_user_leave_amount))
+            # 设置类属性，使用正则更新期望结果
+            setattr(EnvData,'money',str(expected_user_leave_amount))
+            case = replace_case_by_regular(case)
             # 更新期望结果---将更新的期望用户余额更新到期望结果当中
-            case = replace_mark_with_data(case,"#money#",str(expected_user_leave_amount))
+            # case = replace_mark_with_data(case,"#money#",str(expected_user_leave_amount))
 
         # 发起请求,开始充值
         response = send_requests(case['method'],case['url'],case['request_data'],token = EnvData.token)
