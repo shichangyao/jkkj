@@ -3,6 +3,7 @@
 一条用例中可能涉及多处，可以遍历得到
 '''
 from Common.handle_config import conf
+from Common.mylogger import logger
 import re,json
 
 def replace_case_by_regular(case):
@@ -22,6 +23,7 @@ def replace_case_by_regular(case):
     new_case = replace_by_regular(case_str)
     # 把替换的字符串转换成字典
     case_dict = json.loads(new_case)
+    logger.info("正则表达式替换之后的请求数据：\n{}".format(case_dict))
     return case_dict
 
 def replace_by_regular(data):
@@ -36,7 +38,7 @@ def replace_by_regular(data):
         for item in res:
             # 得到标识符对应的值
             try:
-                value = conf.get('data',item)
+                value = conf.get('general_user',item)
             except:
                 # 如果有的值需要在后面才能得到，则可以先不处理，到下一循环处理
                 try:

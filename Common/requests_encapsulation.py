@@ -5,8 +5,12 @@
     {'X-Lemonban-Media-Type': 'lemonban.v2'}
 3.请求体格式:application/json
 '''
+'''
+eval()和json.loads()区别
+若变量中需要做一些加减等操作处理时，要用eval，可以将按照python语法执行，json.loads()不是
+'''
 
-import requests,json
+import requests
 from Common.mylogger import logger
 from Common.handle_config import conf
 
@@ -15,7 +19,11 @@ def __pre_data(data):
     若数据为字符串则转换成字典
     '''
     if data is not None and isinstance(data,str):
-        return json.loads(data)
+        # 如果有null,则替换为None
+        if data.find("null") != -1:
+            data.replace("null","None")
+        # 使用eval转成字典.eval过程中，如果表达式有涉及计算，会自动计算。
+        data = eval(data)
     return data
 
 def __pre_url(url):

@@ -26,13 +26,13 @@ he.close_file()
 class TestUserBusiness(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
-        # 清理环境变量EnvData里设置的属性
+        # 清理环境变量EnvData里设置的类属性(如果先实例化EnvData,再调用为对象属性就不用清理)
         clear_EnvData_attrs()
         # 生成一个新的手机号
         new_phone = get_new_phone()
         setattr(EnvData,"phone",new_phone)
 
-    @ddt.data(*cases)
+    @myddt.data(*cases)
     def test_user_business(self,case):
         # 第一步：替换数据
         case = replace_case_by_regular(case)
