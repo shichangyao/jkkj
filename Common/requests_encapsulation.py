@@ -13,8 +13,9 @@ eval()和json.loads()区别
 import requests
 from Common.mylogger import logger
 from Common.handle_config import conf
+from Common.rsa_add_secret import generator_sign
 
-def __pre_data(data):
+def __pre_data(data,token=None):
     '''
     若数据为字符串则转换成字典
     '''
@@ -24,6 +25,12 @@ def __pre_data(data):
             data.replace("null","None")
         # 使用eval转成字典.eval过程中，如果表达式有涉及计算，会自动计算。
         data = eval(data)
+
+    # 如果headers中是V3版本则需要加上sign和timestamp两个参数
+    if conf.get("server","auth_type") == "lemonban.v3" and token is not None:
+        sign,timestamp = generator_sign(token)
+        data["sign"] = sign
+        data["timestamp"] = timestamp
     return data
 
 def __pre_url(url):
@@ -37,6 +44,7 @@ def __pre_url(url):
         return base_url + '/' + url
 
 def __handle_header(token=None):
+    # headers = {'X-Lemonban-Media-Type': conf.get("server","auth_type"),"Content-Type":"application/json"}
     headers = {'X-Lemonban-Media-Type': 'lemonban.v2',"Content-Type":"application/json"}
     if token:
         headers['Authorization'] = "Bearer {}".format(token)
@@ -48,7 +56,7 @@ def send_requests(method,url,data=None,token=None):
     # 拼接url
     url = __pre_url(url)
     # 请求数据的处理，若是字符串转换成字典
-    data = __pre_data(data)
+    data = __pre_data(data,token)
     logger.info("请求头为：{}".format(headers))
     logger.info("请求方法为：{}".format(method))
     logger.info("请求url为：{}".format(url))
